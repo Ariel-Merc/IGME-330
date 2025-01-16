@@ -7,9 +7,19 @@
 	<title>Technobabble Generator</title>
 	<style>
 		body {
+			height: 100%;
 			background-color: rgb(70, 112, 167);
-			text-align: center;
-			margin-top: 80px;
+		}
+		h1 {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+		.container {
+			height: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
 		}
 		p {
 			color: rgb(209, 118, 43);
@@ -28,8 +38,11 @@
 	
 </head>
 <body>
-	<p id="output">Loading...</p>
-	<button id="myButton">More Technobabble!</button>
+	<h1>Technobabble Generator</h1>
+    <div class="container">
+      <p id="output">Loading...</p>
+      <button id="myButton">More Technobabble!</button>
+    </div>
 
 	<script>
 		"use strict";

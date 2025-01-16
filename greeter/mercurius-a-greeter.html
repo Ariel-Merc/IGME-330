@@ -5,26 +5,60 @@
     <title>Greeter</title>
     <style>
       *{font-size:1.5em;}
+
+      button {
+        width: 150px;
+        height: 50px;
+        font-size: 14pt;
+      }
+      /* @media only screen and (min-width: ) */
     </style>
     <script>
-    
-        document.querySelector("#btn-submit").onclick = sayHello;
+      "use strict";
 
-        function  sayHello() {
-            let name = document.querySelector("#input-firstname").value;
-        }
-    // 1 - get a reference to the button
-    // 2 - add a click event to button that calls a `sayHello` function
-    // 3 - create a `sayHello()` function
-    // 3A - get name of person from the <input>
-    // 3B - get a reference to the #output <p>
-    // 3C - update HTML of #output <p>
-    
+      window.onload = init;
+
+      function init() {
+        const inputFirst = document.querySelector("#input-firstname");
+        document.querySelector("#btn-submit").onclick = () =>{sayHello(inputFirst.value)};
+        // to get handler to do more than 1 thing - use event listeners
+      }
+
+      function  sayHello(name) {
+        //let name = document.querySelector("#input-firstname").value;
+        // name = name == "" ? "Peter" : name
+        if (!name) name = "Peter";
+        // name = name || "Peter";
+        // document.querySelector("#output").innerText = "Hello " + name + "!"; // concat
+        document.querySelector("#output").innerText = `Hello ${name.trim()}!`; // string literal
+        
+      }
+
+      
+      // pointer function
+      // document.querySelector("#btn-submit").onclick = () => {
+      //     let name = document.querySelector("#input-firstname").value;
+      //     document.querySelector("#output").innerText = "Hello " + name + "!";
+      // }
+  
+      // // anonymous function (not immediate)
+      // document.querySelector("#btn-submit").onclick = () =>{sayHello()}; 
+      //  // can also pass in value in quotes (must modify function for this)
+  
+      // 1 - get a reference to the button
+      // 2 - add a click event to button that calls a `sayHello` function
+      // 3 - create a `sayHello()` function
+      // 3A - get name of person from the <input>
+      // 3B - get a reference to the #output <p>
+      // 3C - update HTML of #output <p>
+  
     </script>
   </head>
 <body>
-  <button>Click Me!</button>
+  <button id="btn-submit">Click Me!</button>
   <input id="input-firstname" placeholder="Type in your name">
   <p id="output">???</p>
+
+  
 </body>
 </html>
