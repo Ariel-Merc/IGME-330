@@ -2,35 +2,56 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, 
+	initial-scale=1, maximum-scale=1.0, user-scalable=no">
 	<title>Technobabble Generator</title>
-	<style></style>
-	<script>
-	"use strict";
+	<style>
+		body {
+			background-color: rgb(70, 112, 167);
+			text-align: center;
+			margin-top: 80px;
+		}
+		p {
+			color: rgb(209, 118, 43);
+            font-family: 'Black Ops One', cursive;
+			font-size: 250%;
+		}
+		#myButton {
+			background-color: rgb(141, 216, 203);
+			padding: 0.75%;
+			font-size: 70%;
+			font-weight: 800;
+			overflow: hidden;
+			border-color: rgb(0, 133, 93);
+		}
+	</style>
 	
-	const words1 = ["Acute", "Aft", "Anti-matter", "Bipolar", "Cargo", "Command", "Communication", "Computer", "Deuterium", "Dorsal", "Emergency", "Engineering", "Environmental", "Flight", "Fore", "Guidance", "Heat", "Impulse", "Increased", "Inertial", "Infinite", "Ionizing", "Isolinear", "Lateral", "Linear", "Matter", "Medical", "Navigational", "Optical", "Optimal", "Optional", "Personal", "Personnel", "Phased", "Reduced", "Science", "Ship's", "Shuttlecraft", "Structural", "Subspace", "Transporter", "Ventral"];
-	
-	const words2 = ["Propulsion", "Dissipation", "Sensor", "Improbability", "Buffer", "Graviton", "Replicator", "Matter", "Anti-matter", "Organic", "Power", "Silicon", "Holographic", "Transient", "Integrity", "Plasma", "Fusion", "Control", "Access", "Auto", "Destruct", "Isolinear", "Transwarp", "Energy", "Medical", "Environmental", "Coil", "Impulse", "Warp", "Phaser", "Operating", "Photon", "Deflector", "Integrity", "Control", "Bridge", "Dampening", "Display", "Beam", "Quantum", "Baseline", "Input"];
-	
-	const words3 = ["Chamber", "Interface", "Coil", "Polymer", "Biosphere", "Platform", "Thruster", "Deflector", "Replicator", "Tricorder", "Operation", "Array", "Matrix", "Grid", "Sensor", "Mode", "Panel", "Storage", "Conduit", "Pod", "Hatch", "Regulator", "Display", "Inverter", "Spectrum", "Generator", "Cloud", "Field", "Terminal", "Module", "Procedure", "System", "Diagnostic", "Device", "Beam", "Probe", "Bank", "Tie-In", "Facility", "Bay", "Indicator", "Cell"];
-
-	console.log(words1[0]);
-
-
-    document.querySelector("#myButton").onclick = genBabble;
-    function genBabble() {
-        const randomElement1 = words1[Math.floor(Math.random() * words1.length)];
-        const randomElement2 = words2[Math.floor(Math.random() * words2.length)];
-        const randomElement3 = words3[Math.floor(Math.random() * words3.length)];
-
-        const randomElement = randomElement1 + randomElement2 + randomElement3;
-		document.querySelector("#output").innerHTML = randomElement;
-    }
-
-</script>
 </head>
 <body>
-<p id="output">Loading...</p>
-<button id="myButton">More Technobabble!</button>
+	<p id="output">Loading...</p>
+	<button id="myButton">More Technobabble!</button>
+
+	<script>
+		"use strict";
+		
+		const words1 = ["Acute", "Aft", "Anti-matter", "Bipolar", "Cargo", "Command", "Communication", "Computer", "Deuterium", "Dorsal", "Emergency", "Engineering", "Environmental", "Flight", "Fore", "Guidance", "Heat", "Impulse", "Increased", "Inertial", "Infinite", "Ionizing", "Isolinear", "Lateral", "Linear", "Matter", "Medical", "Navigational", "Optical", "Optimal", "Optional", "Personal", "Personnel", "Phased", "Reduced", "Science", "Ship's", "Shuttlecraft", "Structural", "Subspace", "Transporter", "Ventral"];
+		
+		const words2 = ["Propulsion", "Dissipation", "Sensor", "Improbability", "Buffer", "Graviton", "Replicator", "Matter", "Anti-matter", "Organic", "Power", "Silicon", "Holographic", "Transient", "Integrity", "Plasma", "Fusion", "Control", "Access", "Auto", "Destruct", "Isolinear", "Transwarp", "Energy", "Medical", "Environmental", "Coil", "Impulse", "Warp", "Phaser", "Operating", "Photon", "Deflector", "Integrity", "Control", "Bridge", "Dampening", "Display", "Beam", "Quantum", "Baseline", "Input"];
+		
+		const words3 = ["Chamber", "Interface", "Coil", "Polymer", "Biosphere", "Platform", "Thruster", "Deflector", "Replicator", "Tricorder", "Operation", "Array", "Matrix", "Grid", "Sensor", "Mode", "Panel", "Storage", "Conduit", "Pod", "Hatch", "Regulator", "Display", "Inverter", "Spectrum", "Generator", "Cloud", "Field", "Terminal", "Module", "Procedure", "System", "Diagnostic", "Device", "Beam", "Probe", "Bank", "Tie-In", "Facility", "Bay", "Indicator", "Cell"];
 	
+		document.querySelector("#myButton").onclick = genBabble;
+		
+		function genBabble() {
+	
+			function getElement(array) {
+				return array[Math.floor(Math.random() * array.length)];
+			}
+			const babble = getElement(words1) + " " + getElement(words2) + " " + 
+				getElement(words3);
+	
+			document.querySelector("#output").innerHTML = babble;
+		}
+	</script>
 </body>
 </html>
