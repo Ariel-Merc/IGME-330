@@ -12,24 +12,26 @@
 		rel="stylesheet">
 	<style>
 		@media only screen and (min-width: 320px) {
-			body {
+			.container {
+				display: flex;
+				align-items: center;
+				/* justify-content: center; */
+				flex-direction: column;
+			}
+			html, body, .container {
 				height: 100%;
+				margin: 0;
 				background-color: rgb(70, 112, 167);
 			}
-
 			h1 {
 				text-align: center;
 				background-color: rgb(141, 216, 203);
+				color: rgb(39, 39, 39);
 				margin-top: 0px;
-				padding: 0px;
+				padding: 10px;
 			}
-
-			.container {
-				height: 100%;
-				text-align: center;
-			}
-
 			#output {
+				text-align: center;
 				color: rgb(209, 118, 43);
 				font-family: 'Black Ops One', cursive;
 				font-size: 250%;
