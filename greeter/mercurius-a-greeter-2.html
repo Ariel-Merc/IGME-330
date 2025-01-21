@@ -25,30 +25,21 @@
 
       function init() {
         changeColor();
-        const inputFirst = document.querySelector("#input-firstname");
-        const inputLast = document.querySelector("#input-lastname");
-        document.querySelector("#btn-hello").onclick = () =>{sayHello(inputFirst.value, inputLast.value)};
+        
+        document.querySelector("#btn-hello").onclick = () =>{greet("Hello")};
         // to get handler to do more than 1 thing - use event listeners
-        document.querySelector("#btn-goodbye").onclick = () =>{sayGoodbye(inputFirst.value, inputLast.value)};
+        document.querySelector("#btn-goodbye").onclick = () =>{greet("Goodbye")};
         
       }
 
-      function  sayHello(name, lastname) {
-        //let name = document.querySelector("#input-firstname").value;
-        // name = name == "" ? "Peter" : name
-        if (!name) name = "Peter";
-        if (!lastname) lastname = "Parker";
-        // name = name || "Peter";
-        // document.querySelector("#output").innerText = "Hello " + name + "!"; // concat
-        document.querySelector("#output").innerText = `Hello ${name.trim()} ${lastname.trim()}!`; // string literal
-        
-      }
+      function greet(greeting) {
+        let name = document.querySelector("#input-firstname").value;
+        let lastname = document.querySelector("#input-lastname").value;
 
-      function  sayGoodbye(name, lastname) {
         if (!name) name = "Peter";
         if (!lastname) lastname = "Parker";
-        document.querySelector("#output").innerText = `Goodbye ${name.trim()} ${lastname.trim()}!`; // string literal
-        
+
+        document.querySelector("#output").innerText = `${greeting} ${name.trim()} ${lastname.trim()}!`;
       }
 
       function changeColor() {
@@ -79,8 +70,9 @@
 <body>
   <button id="btn-hello">Say Hello</button>
   <button id="btn-goodbye">Say Goodbye</button>
-  <input id="input-firstname" placeholder="Type in your name">
-  <input id="input-lastname" placeholder="Type in your last name">
+  <hr>
+  <input id="input-firstname" placeholder="First name">
+  <input id="input-lastname" placeholder="Last name">
   <p id="output">???</p>
 
   
