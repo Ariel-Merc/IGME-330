@@ -3,8 +3,11 @@
   <head>
     <meta charset="utf-8" />
     <title>Greeter</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Smooch+Sans:wght@100..900&display=swap" rel="stylesheet">
     <style>
-      *{font-size:1.5em;}
+      *{font-size:1.5em; font-family: 'Smooch Sans'}
 
       button {
         width: 150px;
@@ -16,6 +19,9 @@
           background-color: red;
           padding: 100px;
         }
+      }
+      label {
+        font-size: 16pt;
       }
     </style>
     <script>
@@ -38,7 +44,9 @@
 
         if (!name) name = "Peter";
         if (!lastname) lastname = "Parker";
-
+        name = shoutify(name);
+        lastname = shoutify(lastname);
+        greeting = shoutify(greeting);
         document.querySelector("#output").innerText = `${greeting} ${name.trim()} ${lastname.trim()}!`;
       }
 
@@ -48,6 +56,15 @@
         para.style.backgroundColor = "yellow";
       }
       
+      function shoutify(name) {
+        if (document.querySelector("#shoutify").checked) {
+          name = name.toUpperCase();
+        }
+        else {
+          name = name.toLowerCase();
+        }
+        return name;
+      }
       // pointer function
       // document.querySelector("#btn-submit").onclick = () => {
       //     let name = document.querySelector("#input-firstname").value;
@@ -58,22 +75,13 @@
       // document.querySelector("#btn-submit").onclick = () =>{sayHello()}; 
       //  // can also pass in value in quotes (must modify function for this)
   
-      // 1 - get a reference to the button
-      // 2 - add a click event to button that calls a `sayHello` function
-      // 3 - create a `sayHello()` function
-      // 3A - get name of person from the <input>
-      // 3B - get a reference to the #output <p>
-      // 3C - update HTML of #output <p>
-  
     </script>
   </head>
 <body>
   <button id="btn-hello">Say Hello</button>
   <button id="btn-goodbye">Say Goodbye</button>
-  <div>
-    <input type="checkbox" id="shoutify" name="shoutify" checked />
-    <label for="shoutify">Shoutify</label>
-  </div>
+  <input type="checkbox" id="shoutify" name="shoutify" />
+  <label for="shoutify">Shoutify!</label>
   <hr>
   <input id="input-firstname" placeholder="First name">
   <input id="input-lastname" placeholder="Last name">
