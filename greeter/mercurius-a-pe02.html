@@ -27,54 +27,53 @@
     <script>
       "use strict";
       
-      window.onload = init;
 
-      function init() {
-        changeColor();
+      // after window loads, output a greeting when either 
+      // greeting buttton is pressed
+      window.onload = () => {
+        changeColor(); // change color of greeting text
         
         document.querySelector("#btn-hello").onclick = () =>{greet("Hello")};
-        // to get handler to do more than 1 thing - use event listeners
         document.querySelector("#btn-goodbye").onclick = () =>{greet("Goodbye")};
-        
       }
 
-      function greet(greeting) {
+      // takes the values of the name ids and concatenates them together
+      // with a particular greeting specified by the parameter 
+      const greet = (greeting = "Greetings") => {
         let name = document.querySelector("#input-firstname").value;
         let lastname = document.querySelector("#input-lastname").value;
 
+        // if name component/s are missing, use a default one
         if (!name) name = "Peter";
         if (!lastname) lastname = "Parker";
+
+        // modify greeting components
         name = shoutify(name);
         lastname = shoutify(lastname);
         greeting = shoutify(greeting);
+
+        // piece full greeting together and set as output 
         document.querySelector("#output").innerText = `${greeting} ${name.trim()} ${lastname.trim()}!`;
       }
 
-      function changeColor() {
+      // takes the greeting from the output id and changing it's color
+      const changeColor = () => {
         const para = document.querySelector("#output");
         para.style.color = "red";
         para.style.backgroundColor = "yellow";
       }
       
-      function shoutify(name) {
+      // takes a greeting component and changes it to all uppercase
+      // or lowercase based on if shoutify has been checked
+      const shoutify = (component) => {
         if (document.querySelector("#shoutify").checked) {
-          name = name.toUpperCase();
+          component = component.toUpperCase();
         }
         else {
-          name = name.toLowerCase();
+          component = component.toLowerCase();
         }
-        return name;
+        return component;
       }
-      // pointer function
-      // document.querySelector("#btn-submit").onclick = () => {
-      //     let name = document.querySelector("#input-firstname").value;
-      //     document.querySelector("#output").innerText = "Hello " + name + "!";
-      // }
-  
-      // // anonymous function (not immediate)
-      // document.querySelector("#btn-submit").onclick = () =>{sayHello()}; 
-      //  // can also pass in value in quotes (must modify function for this)
-  
     </script>
   </head>
 <body>
