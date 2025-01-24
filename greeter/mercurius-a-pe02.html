@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Greeter</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Smooch+Sans:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+      *{font-size:1.5em; font-family: 'Smooch Sans'}
+
+      button {
+        width: 150px;
+        height: 50px;
+        font-size: 14pt;
+      }
+      @media only screen and (min-width: 1024px) {
+        body {
+          background-color: red;
+          padding: 100px;
+        }
+      }
+      label {
+        font-size: 16pt;
+      }
+    </style>
+    <script>
+      "use strict";
+      
+
+      // after window loads, output a greeting when either 
+      // greeting buttton is pressed
+      window.onload = () => {
+        changeColor(); // change color of greeting text
+        
+        document.querySelector("#btn-hello").onclick = () =>{greet("Hello")};
+        document.querySelector("#btn-goodbye").onclick = () =>{greet("Goodbye")};
+      }
+
+      // takes the values of the name ids and concatenates them together
+      // with a particular greeting specified by the parameter 
+      const greet = (greeting = "Greetings") => {
+        let name = document.querySelector("#input-firstname").value;
+        let lastname = document.querySelector("#input-lastname").value;
+
+        // if name component/s are missing, use a default one
+        if (!name) name = "Peter";
+        if (!lastname) lastname = "Parker";
+
+        // modify greeting components
+        name = shoutify(name);
+        lastname = shoutify(lastname);
+        greeting = shoutify(greeting);
+
+        // piece full greeting together and set as output 
+        document.querySelector("#output").innerText = `${greeting} ${name.trim()} ${lastname.trim()}!`;
+      }
+
+      // takes the greeting from the output id and changing it's color
+      const changeColor = () => {
+        const para = document.querySelector("#output");
+        para.style.color = "red";
+        para.style.backgroundColor = "yellow";
+      }
+      
+      // takes a greeting component and changes it to all uppercase
+      // or lowercase based on if shoutify has been checked
+      const shoutify = (component) => {
+        if (document.querySelector("#shoutify").checked) {
+          component = component.toUpperCase();
+        }
+        else {
+          component = component.toLowerCase();
+        }
+        return component;
+      }
+    </script>
+  </head>
+<body>
+  <button id="btn-hello">Say Hello</button>
+  <button id="btn-goodbye">Say Goodbye</button>
+  <input type="checkbox" id="shoutify" name="shoutify" />
+  <label for="shoutify">Shoutify!</label>
+  <hr>
+  <input id="input-firstname" placeholder="First name">
+  <input id="input-lastname" placeholder="Last name">
+  <p id="output">???</p>
+
+  
+</body>
+</html>
