@@ -34,6 +34,16 @@
         overflow: hidden;
         border-color: rgb(0, 133, 93);
     }
+
+    #multiButton {
+        display: none;
+        background-color: rgb(141, 216, 203);
+        padding: 0.75%;
+        font-size: 70%;
+        font-weight: 800;
+        overflow: hidden;
+        border-color: rgb(0, 133, 93);
+    }
 }
 
 @media only screen and (min-width: 768px) {
@@ -91,6 +101,15 @@
         color: rgb(201, 201, 201);
     }
     #myButton {
+        width: 200px;
+        height: 50pt;
+        font-size: 1.0rem;
+        background-color: rgb(239, 255, 252);
+        color: rgb(49, 79, 117);
+        border-radius: 10px;
+    }
+    #multiButton {
+        display: inline;
         width: 200px;
         height: 50pt;
         font-size: 1.0rem;
