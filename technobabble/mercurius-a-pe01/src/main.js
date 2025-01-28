@@ -1,4 +1,4 @@
-"use strict";
+import { getElement } from "./utils.js";
 
 const words1 = ["Acute", "Aft", "Anti-matter", "Bipolar", "Cargo", "Command", "Communication", "Computer", "Deuterium", "Dorsal", "Emergency", "Engineering", "Environmental", "Flight", "Fore", "Guidance", "Heat", "Impulse", "Increased", "Inertial", "Infinite", "Ionizing", "Isolinear", "Lateral", "Linear", "Matter", "Medical", "Navigational", "Optical", "Optimal", "Optional", "Personal", "Personnel", "Phased", "Reduced", "Science", "Ship's", "Shuttlecraft", "Structural", "Subspace", "Transporter", "Ventral"];
 
@@ -6,15 +6,18 @@ const words2 = ["Propulsion", "Dissipation", "Sensor", "Improbability", "Buffer"
 
 const words3 = ["Chamber", "Interface", "Coil", "Polymer", "Biosphere", "Platform", "Thruster", "Deflector", "Replicator", "Tricorder", "Operation", "Array", "Matrix", "Grid", "Sensor", "Mode", "Panel", "Storage", "Conduit", "Pod", "Hatch", "Regulator", "Display", "Inverter", "Spectrum", "Generator", "Cloud", "Field", "Terminal", "Module", "Procedure", "System", "Diagnostic", "Device", "Beam", "Probe", "Bank", "Tie-In", "Facility", "Bay", "Indicator", "Cell"];
 
-document.querySelector("#myButton").onclick = genBabble;
+window.onload = () => {
+    generateTechno(1); // generate a line of text immedietely on load
+    
+    document.querySelector("#btn-gen-1").onclick = () =>{generateTechno(1)};
+    document.querySelector("#btn-gen-5").onclick = () =>{generateTechno(5)};
+}
 
-function genBabble() {
-
-    function getElement(array) {
-        return array[Math.floor(Math.random() * array.length)];
+const generateTechno = (num) => {
+    let babble = "";
+    for (let i = 0; i < num; i++) {
+        babble = `${babble}<p>${getElement(words1)} ${getElement(words2)} ${getElement(words3)}</p>`;
     }
-    const babble = getElement(words1) + " " + getElement(words2) + " " +
-        getElement(words3);
-
+    console.log(babble);
     document.querySelector("#output").innerHTML = babble;
 }
