@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <title>XHR - Load JSON</title>
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+    </style>
+
+</head>
+
+<body>
+    <h2>XHR - Load JSON File</h2>
+    <hr>
+    <button id="my-button">Load Data</button>
+    <p id="output">Click button to load</p>
+
+
+    <script>
+        document.querySelector("#my-button").onclick = loadXmlXHR;
+
+        function loadXmlXHR() {
+            const url = "data/pet-names.json";
+            const xhr = new XMLHttpRequest();
+            xhr.onload = (e) => {
+                console.log(`In onload - HTTP Status Code = ${e.target.status}`);
+                const data = e.target.responseText;
+
+                let json;
+                // try to parse data from json file
+                try {
+                    json = JSON.parse(data);
+                } 
+                catch {
+                    document.querySelector("#output").innerHTML = "json parse failed";
+                }
+                // let dogNames = json.dognames;
+                // let catNames = json.catnames;
+
+                console.log(Object.keys(json));
+                for (let item of Object.keys(json)) {
+                    console.log(json[item].type);
+                }
+                //Object.keys(object1); 
+
+                // turn arrays into html 
+                const dogHtml = `<ol>${dogNames.map(w => `<li>${w}</li>`).join("")}</ol>`;
+                const catHtml = `<ol>${catNames.map(w => `<li>${w}</li>`).join("")}</ol>`;
+                // const birdHtml = `<ol>${birdNames.map(w => `<li>${w}</li>`).join("")}</ol>`;
+
+                // arrange and format the html to be output to the page
+                const html = `
+                    <h3>Dog Names</h3>
+                    ${dogHtml}
+                    <h3>Cat Names</h3>
+                    ${catHtml}
+                `;
+                document.querySelector("#output").innerHTML = `<ol>${html}</ol>`;
+            };
+
+            xhr.onerror = e => console.log(`In onerror - HTTP Status Code = ${e.target.status}`);
+            xhr.open("GET",url);
+            xhr.send();
+        }
+
+    </script>
+</body>
+
+</html>
