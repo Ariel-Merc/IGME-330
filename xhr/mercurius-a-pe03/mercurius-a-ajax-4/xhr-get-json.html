@@ -21,9 +21,9 @@
 
 
     <script>
-        document.querySelector("#my-button").onclick = loadXmlXHR;
+        document.querySelector("#my-button").onclick = loadJsonXHR;
 
-        function loadXmlXHR() {
+        function loadJsonXHR() {
             const url = "data/pet-names.json";
             const xhr = new XMLHttpRequest();
             xhr.onload = (e) => {
@@ -38,27 +38,19 @@
                 catch {
                     document.querySelector("#output").innerHTML = "json parse failed";
                 }
-                // let dogNames = json.dognames;
-                // let catNames = json.catnames;
+                let dogNames = json.dognames;
+                let catNames = json.catnames;
 
                 console.log(Object.keys(json));
+
+                let html = "";
                 for (let item of Object.keys(json)) {
-                    console.log(json[item].type);
+                    const obj = json[item];
+                    html += `<h3>${obj.title}</h3>`;
+                    html += `<ol>${obj["namelist"].map(w => `<li>${w}</li>`).join("")}</ol>`;
                 }
                 //Object.keys(object1); 
-
-                // turn arrays into html 
-                const dogHtml = `<ol>${dogNames.map(w => `<li>${w}</li>`).join("")}</ol>`;
-                const catHtml = `<ol>${catNames.map(w => `<li>${w}</li>`).join("")}</ol>`;
-                // const birdHtml = `<ol>${birdNames.map(w => `<li>${w}</li>`).join("")}</ol>`;
-
-                // arrange and format the html to be output to the page
-                const html = `
-                    <h3>Dog Names</h3>
-                    ${dogHtml}
-                    <h3>Cat Names</h3>
-                    ${catHtml}
-                `;
+                
                 document.querySelector("#output").innerHTML = `<ol>${html}</ol>`;
             };
 

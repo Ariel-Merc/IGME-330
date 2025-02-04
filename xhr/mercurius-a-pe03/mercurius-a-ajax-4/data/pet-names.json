@@ -52,5 +52,32 @@
             "Simon",
             "Shadow"
         ]
+    },
+    "3cb9eb5c": {
+        "type": "birdnames",
+        "popularity": 2,
+        "title": "Bird Names",
+        "namelist": [
+            "Kiwi",
+            "Sunny",
+            "Sky",
+            "Chirpy",
+            "Tweety",
+            "Coco",
+            "Buddy",
+            "Peaches",
+            "Charlie",
+            "Angel",
+            "Mango",
+            "Polly",
+            "Rio",
+            "Bella",
+            "Pepper",
+            "Gizmo",
+            "Ziggy",
+            "Mochi",
+            "Jasper",
+            "Ruby"
+        ]
     }
 }
