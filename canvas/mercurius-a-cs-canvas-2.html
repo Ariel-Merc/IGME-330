@@ -52,6 +52,15 @@
             ctx.fill();
             ctx.stroke();
 
+            // two additional rects
+            ctx.fillStyle = "purple";
+            ctx.strokeStyle = "white";
+            ctx.fillRect(50,60,50,360);
+            ctx.strokeRect(50,60,50,360);
+
+            ctx.fillRect(550,100,50,300);
+            ctx.strokeRect(550,100,50,300);
+
 
 
             // lines
@@ -68,7 +77,14 @@
             ctx.closePath();
             ctx.stroke();
 
-
+            // additional line 20w 600L
+            ctx.strokeStyle = "gray";
+            ctx.beginPath();
+            ctx.moveTo(320,20);
+            ctx.lineTo(320,460);
+            ctx.closePath();
+            ctx.stroke();
+            
 
             // arc
             ctx.strokeStyle = "purple";
@@ -79,13 +95,27 @@
             ctx.fill();
             ctx.stroke();
 
+            // additional circles
+            ctx.strokeStyle = "white";
+            ctx.fillStyle = "blue";
+            ctx.lineWidth = 5;
+            ctx.beginPath();
+            ctx.arc(300,260, 10,Math.PI * 2, false);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
 
+            ctx.beginPath();
+            ctx.arc(340,260, 10,Math.PI * 2, false);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
 
             // semi circle
             ctx.strokeStyle = "yellow";
             ctx.fillStyle = "gray";
             ctx.beginPath();
-            ctx.arc(320,240, 20,Math.PI, false);
+            ctx.arc(320,240, 30,Math.PI, false);
             ctx.closePath();
             ctx.fill();
             ctx.stroke();
