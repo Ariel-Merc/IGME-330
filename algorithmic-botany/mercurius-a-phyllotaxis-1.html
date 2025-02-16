@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Sine Start</title>
+    <style>
+        canvas {
+            border: 1px solid black;
+        }
+    </style>
+    <script>
+        "use strict";
+        const canvasWidth = 800, canvasHeight = 600;
+        let ctx;
+        let x = 0; // dot's x position
+        let y = 0; // dot's y position
+        let radius = 3; // radius of a dot
+        let n = 0; // number of each dot
+        let c = 5; // constant scaling parameter
+        const fps = 60; // frames per second
+        let counter = 0;
+        let offsetX = 0;
+        let offsetY = 0;
+        let divergence = 110.5; //divergence angle (degrees)
+
+        window.onload = init;
+
+        function init() {
+            ctx = canvas.getContext("2d");
+            canvas.width = canvasWidth;
+            canvas.height = canvasHeight;
+            ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+            loop();
+            setUpUI();
+        }
+
+        // animation function
+        function loop() {
+            setTimeout(loop, 1000 / fps);
+            let a = n * dtr(divergence); // the angle
+            let r = c * Math.sqrt(n); // distance from center pole
+            n++;
+            
+            // calculate the x and y
+            canvas.onclick = (e) => {canvasClicked(e)};
+            let x = offsetX + r * Math.cos(a) + canvasWidth / 2;
+            let y = offsetY + r * Math.sin(a) + canvasHeight / 2;
+
+            //console.log(x, y);
+            let aDegrees = (n * divergence) % 361;
+            let color = `hsl(${n / 5 % 361},100%,50%)`;
+            drawCircle(ctx, x, y, radius, color);
+            counter++;
+            radius += 0.01;
+
+            if (counter > 900) {
+                ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+                counter = 0;
+                radius = 3;
+                n = 0;
+            }
+        }
+
+        // set up user button controls
+        function setUpUI() {
+            document.querySelector("#btn-restart").onclick = () => {
+                ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+                counter = 0;
+                radius = 3;
+                n = 0;
+                divergence = 110.5
+                offsetX = 0;
+                offsetY = 0;
+            }
+            document.querySelector("#btn-increase").onclick = () => {
+                divergence += 0.5;
+            }
+            document.querySelector("#btn-decrease").onclick = () => {
+                divergence -= 0.5;
+            }
+        }
+
+        // canvas interaction
+        function canvasClicked(e) {
+            counter = 991;
+            let rect = e.target.getBoundingClientRect();
+            let mouseX = e.clientX - rect.x;
+            let mouseY = e.clientY - rect.y;
+            offsetX = mouseX - (canvasWidth/2);
+            offsetY = mouseY - (canvasHeight/2);
+        }
+
+
+        // helpers
+        function dtr(degrees) {
+            return degrees * (Math.PI / 180);
+        }
+
+        function drawCircle(ctx, x, y, radius, color) {
+            ctx.save();
+            ctx.fillStyle = color;
+            ctx.beginPath();
+            ctx.arc(x, y, radius, 0, Math.PI * 2);
+            ctx.closePath();
+            ctx.fill();
+            ctx.restore();
+        }
+
+    </script>
+</head>
+
+<body>
+    <canvas id="canvas"></canvas>
+    <section>
+        <button id="btn-restart">restart</button>
+        <button id="btn-increase">Increase divergence</button>
+        <button id="btn-decrease">Decrease divergence</button>
+    </section>
+    <section>
+        <p>For #2, I increased scaling parameter.
+            Then I decreased the radius to 3 and angle divergence to 110.5.
+        </p>
+        <p>The restart button clears the screen and starts the flower again.
+            The controls alter the divergence, either increasing
+            it or decreasing it by increments of 0.5.
+        </p>
+    </section>
+
+</body>
+
+</html>
