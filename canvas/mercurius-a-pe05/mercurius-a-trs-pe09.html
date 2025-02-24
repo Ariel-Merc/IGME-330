@@ -19,17 +19,24 @@
         'use strict';
         let ctx = document.querySelector('canvas').getContext('2d');
         let rotation = 0;
+        let translation = 0;
+        let scale = 0;
         loop();
 
         function loop() {
             requestAnimationFrame(loop);
-            // background
             rotation+=.05;
-
+            translation+=0.5;
+            if (scale < 7) {
+                scale+=0.01;
+            }
+            
+            // background
             ctx.save();
             ctx.fillStyle = 'yellow';
             ctx.fillRect(0, 0, 640, 480);
-            // draw a "better" triangle - why is this better? You'll see!
+
+            // draw a "better" triangle
             ctx.save();
             ctx.strokeStyle = "red";
             ctx.translate(500, 200);
@@ -51,14 +58,7 @@
             // do some transformations?
             ctx.translate(100, 0);
             ctx.rotate(rotation);
-            //ctx.scale(1.2,1.2);
-
             ctx.save();
-            // // set a bunch of state attributes
-            // ctx.shadowOffsetX = 15;
-            // ctx.shadowOffsetY = 15;
-            // ctx.shadowColor = "rgba(153,50,204,.6)";
-            // ctx.shadowBlur = 5;
 
 
             // // draw square with fillRect() convenience method
@@ -90,7 +90,11 @@
             ctx.stroke();
             ctx.restore();
 
+            // draw additional triangle
+            drawTriangle(ctx, 320, 320, 100, 100, -rotation, "pink", "white", 1);
 
+            // draw additional shape
+            drawSquare2(ctx,translation,translation, 100, 50, rotation, "black", scale)
         }
 
 
@@ -112,6 +116,26 @@
             ctx.restore();
             // the old state attributes are restored, ctx is 
             // as it was before this function was called
+        }
+
+        function drawTriangle(ctx, x,y, lineLength, height, rotation,strokeStyle, fillStyle, scale) {
+            ctx.save();
+            ctx.fillStyle = fillStyle;
+            ctx.strokeStyle = strokeStyle;
+
+            ctx.translate(x,y);
+            ctx.rotate(rotation);
+            ctx.scale(scale, scale);
+
+            ctx.beginPath();
+            ctx.moveTo(0, -height/2); // top most vertex
+            ctx.lineTo(-lineLength/2, height/2); // bottom right vertex
+            ctx.lineTo(lineLength/2, height/2); // bottom left vertex
+            ctx.closePath();
+
+            ctx.fill();
+            ctx.stroke();
+            ctx.restore();
         }
     </script>
 </body>
