@@ -1,0 +1,38 @@
+{
+    "movies": [
+        "JavaScript Park",
+        "The Fast and the Function",
+        "Object-Oriented Citizen",
+        "Array Story",
+        "Syntax Hard",
+        "Lord of the Strings",
+        "The DOMfather",
+        "Cascading Styles Wars",
+        "The Callback Knight",
+        "Pirates of the Callback"
+    ],
+    "songs": [
+        "Smells Like JSON Spirit",
+        "Don't Stop Fetchin'",
+        "Hotel Callback",
+        "Sweet JavaScript O' Mine",
+        "QuerySelector Rhapsody",
+        "We Will Debug You",
+        "Enter Function",
+        "XHR Like a Hurricane",
+        "Gimme Some Scope",
+        "The Load Event"
+    ],
+    "books": [
+        "To Fetch a Mockingbird",
+        "Harry Potter and the Goblet of Code",
+        "The Great Syntax",
+        "Lord of the Loops",
+        "JavaScript and Prejudice",
+        "The Hitchhiker’s Guide to the API",
+        "Debugging Expectations",
+        "The Nodefather",
+        "A Tale of Two Functions",
+        "Moby Script"
+    ]
+}

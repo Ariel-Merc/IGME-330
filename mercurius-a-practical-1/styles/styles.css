@@ -1,0 +1,54 @@
+/* TODO: Ensure this file is properly linked in index.html */
+
+/* Apply a Google Font of your choice to the title */
+.title {
+    /* TODO: Add the correct font-family here */
+    font-size: 2.5em;
+    color: #ff5733;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    font-family: "Grechen Fuemen", serif;
+}
+
+.data-list {
+    list-style: none;
+    padding: 0;
+}
+
+.data-list li {
+    background-color: #ffebcc;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+    font-size: 1.2em;
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+    .data-list {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        max-width: 600px;
+        margin: auto;
+    }
+
+    .data-list li {
+        text-align: left;
+    }
+}
+
+@media (min-width: 1024px) {
+    .data-list {
+        grid-template-columns: repeat(3, 1fr);
+        max-width: 800px;
+    }
+}
