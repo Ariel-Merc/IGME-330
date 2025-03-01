@@ -26,7 +26,7 @@ const DEFAULTS = Object.freeze({
   sound1: "./media/New Adventure Theme.mp3"
 });
 
-function init() {
+const init = () => {
   console.log("init called");
   console.log(`Testing utils.getRandomColor() import: ${utils.getRandomColor()}`);
   audio.setupWebAudio(DEFAULTS.sound1);
@@ -36,7 +36,7 @@ function init() {
   loop();
 }
 
-function setupUI(canvasElement) {
+const setupUI = (canvasElement) => {
   // A - hookup fullscreen button
   const fsButton = document.querySelector("#fsButton");
 
@@ -47,7 +47,7 @@ function setupUI(canvasElement) {
   };
 
   // B
-  playButton.onclick = e => {
+  document.querySelector("#btn-play").onclick = e => {
     console.log(`audioCtx.state before = ${audio.audioCtx.state}`);
 
     // check if context is in suspended state
@@ -69,7 +69,7 @@ function setupUI(canvasElement) {
   }
 
   // C - hookup volume slider & label
-  let volumeSlider = document.querySelector("#volumeSlider");
+  let volumeSlider = document.querySelector("#slider-volume");
   let volumeLabel = document.querySelector("#volumeLabel");
 
   // add .oninput event to slider
@@ -95,7 +95,7 @@ function setupUI(canvasElement) {
   }
 
   // toggling check boxes
-  document.querySelector("#gradientCB").onclick = () => {
+  document.querySelector("#cb-gradient").onclick = () => {
     if (drawParams.showGradient) {
       drawParams.showGradient = false;
     }
@@ -103,7 +103,7 @@ function setupUI(canvasElement) {
       drawParams.showGradient = true;
     }
   }
-  document.querySelector("#barsCB").onclick = () => {
+  document.querySelector("#cb-bars").onclick = () => {
     if (drawParams.showBars) {
       drawParams.showBars = false;
     }
@@ -111,7 +111,7 @@ function setupUI(canvasElement) {
       drawParams.showBars = true;
     }
   }
-  document.querySelector("#circlesCB").onclick = () => {
+  document.querySelector("#cb-circles").onclick = () => {
     if (drawParams.showCircles) {
       drawParams.showCircles = false;
     }
@@ -119,7 +119,7 @@ function setupUI(canvasElement) {
       drawParams.showCircles = true;
     }
   }
-  document.querySelector("#noiseCB").onclick = () => {
+  document.querySelector("#cb-noise").onclick = () => {
     if (drawParams.showNoise) {
       drawParams.showNoise = false;
     }
@@ -127,7 +127,7 @@ function setupUI(canvasElement) {
       drawParams.showNoise = true;
     }
   }
-  document.querySelector("#invertCB").onclick = () => {
+  document.querySelector("#cb-invert").onclick = () => {
     if (drawParams.showInvert) {
       drawParams.showInvert = false;
     }
@@ -135,7 +135,7 @@ function setupUI(canvasElement) {
       drawParams.showInvert = true;
     }
   }
-  document.querySelector("#embossCB").onclick = () => {
+  document.querySelector("#cb-emboss").onclick = () => {
     if (drawParams.showEmboss) {
       drawParams.showEmboss = false;
     }
@@ -146,7 +146,7 @@ function setupUI(canvasElement) {
 
 } // end setupUI
 
-function loop() {
+const loop = () => {
   /* NOTE: This is temporary testing code that we will delete in Part II */
   requestAnimationFrame(loop);
   canvas.draw(drawParams);
