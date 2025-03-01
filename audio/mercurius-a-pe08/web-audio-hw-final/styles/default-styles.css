@@ -1,0 +1,58 @@
+/* styles/default-styles.css */
+body,
+html {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+main {
+  display: flex;
+  /* justify-content: space-between; */
+  height: 60vh;
+  /* Make sure the layout takes full viewport height */
+}
+
+#visualizer-container {
+  display: flex;
+  width: 100%;
+}
+
+#visualizer-canvas {
+  flex: 1;
+  /* Canvas takes up all available space */
+  background: #000;
+}
+
+#controls {
+  width: 300px;
+  /* Set a fixed width for the control panel */
+  background: #333;
+  color: white;
+  padding: 20px;
+  overflow-y: auto;
+  /* Add scroll if the controls exceed the height */
+}
+
+section {
+  margin-bottom: 20px;
+}
+
+
+label {
+  margin-left: 10px;
+}
+
+button,
+select {
+  background-color: #444;
+  color: white;
+  border: none;
+  padding: 10px;
+  margin: 5px 0;
+}
+
+button:hover,
+select:hover {
+  cursor: pointer;
+}
