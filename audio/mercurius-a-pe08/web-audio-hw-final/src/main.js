@@ -16,6 +16,7 @@ const drawParams = {
   showGradient: true,
   showBars: true,
   showCircles: true,
+  showRipples: false,
   showNoise: false,
   showInvert: false,
   showEmboss: false
@@ -141,6 +142,14 @@ const setupUI = (canvasElement) => {
     }
     else {
       drawParams.showEmboss = true;
+    }
+  }
+  document.querySelector("#cb-ripple").onclick = () => {
+    if (drawParams.showRipples) {
+      drawParams.showRipples = false;
+    }
+    else {
+      drawParams.showRipples = true;
     }
   }
 

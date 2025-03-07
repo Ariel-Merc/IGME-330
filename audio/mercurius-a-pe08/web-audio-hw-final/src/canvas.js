@@ -8,9 +8,10 @@
 */
 
 import * as utils from './utils.js';
+import { Ripple } from './ripple.js';
 
 let ctx, canvasWidth, canvasHeight, gradient, analyserNode, audioData;
-
+let ripples = []; // Array to store active ripples
 
 const setupCanvas = (canvasElement, analyserNodeRef) => {
     // create drawing context
@@ -70,6 +71,33 @@ const draw = (params = {}) => {
         ctx.restore();
     }
 
+    if (params.showRipples) {
+        for (let i = 0; i < audioData.length; i++) {
+            let percent = audioData[i] / 255;
+            if (percent >= 0.1 && Math.random() < 0.001) {
+                
+                let ripple = new Ripple(
+                    Math.random() * canvasWidth,// random x
+                    Math.random() * canvasHeight, // random y
+                    percent // audio intensity
+                );
+                ripples.push(ripple);
+            }
+
+        }
+
+        for (let i = ripples.length - 1; i >= 0; i--) {
+            let r = ripples[i];
+
+            r.update();
+            r.draw(ctx);
+
+            if (r.isDead()) {
+                ripples.splice(i, 1);
+            }
+        }
+    }
+
     // 5 - draw circles
     if (params.showCircles) {
         let maxRadius = canvasHeight / 4;
@@ -106,52 +134,52 @@ const draw = (params = {}) => {
     }
 
     // 6 - bitmap manipulation
-	// TODO: right now. we are looping though every pixel of the canvas (320,000 of them!), 
-	// regardless of whether or not we are applying a pixel effect
-	// At some point, refactor this code so that we are looping though the image data only if
-	// it is necessary
+    // TODO: right now. we are looping though every pixel of the canvas (320,000 of them!), 
+    // regardless of whether or not we are applying a pixel effect
+    // At some point, refactor this code so that we are looping though the image data only if
+    // it is necessary
 
-	// A) grab all of the pixels on the canvas and put them in the `data` array
-	// `imageData.data` is a `Uint8ClampedArray()` typed array that has 1.28 million elements!
-	// the variable `data` below is a reference to that array 
-    let imageData = ctx.getImageData(0,0,canvasWidth,canvasHeight);
+    // A) grab all of the pixels on the canvas and put them in the `data` array
+    // `imageData.data` is a `Uint8ClampedArray()` typed array that has 1.28 million elements!
+    // the variable `data` below is a reference to that array 
+    let imageData = ctx.getImageData(0, 0, canvasWidth, canvasHeight);
     let data = imageData.data;
     let length = data.length;
     let width = imageData.width; // not using here
-	
-	// B) Iterate through each pixel, stepping 4 elements at a time (which is the RGBA for 1 pixel)
-    for (let i=0; i< length; i+=4) {
-		// C) randomly change every 20th pixel to red
-        if (params.showNoise && Math.random()<0.05) {
-			// data[i] is the red channel
-			// data[i+1] is the green channel
-			// data[i+2] is the blue channel
-			// data[i+3] is the alpha channel
-			data[i] = data[i+1] = data[i+2] = 0; // zero out the red and green and blue channels
-			data[i] =100; // make the red channel 100% red
-		} // end if
+
+    // B) Iterate through each pixel, stepping 4 elements at a time (which is the RGBA for 1 pixel)
+    for (let i = 0; i < length; i += 4) {
+        // C) randomly change every 20th pixel to red
+        if (params.showNoise && Math.random() < 0.05) {
+            // data[i] is the red channel
+            // data[i+1] is the green channel
+            // data[i+2] is the blue channel
+            // data[i+3] is the alpha channel
+            data[i] = data[i + 1] = data[i + 2] = 0; // zero out the red and green and blue channels
+            data[i] = 100; // make the red channel 100% red
+        } // end if
 
         // invert
         if (params.showInvert) {
-            let red = data[i], green = data[i+1], blue = data[i+2];
-            data[i+1] = 255 - red;
-            data[i+1] = 255 - green;
-            data[i+2] = 255 - blue;
+            let red = data[i], green = data[i + 1], blue = data[i + 2];
+            data[i + 1] = 255 - red;
+            data[i + 1] = 255 - green;
+            data[i + 2] = 255 - blue;
             // data[i+3] is the alpha
         }
-	} // end for
-    
+    } // end for
+
     // add embossing
     for (let i = 0; i < length; i++) {
         // do so only if checkbox is checked
         if (params.showEmboss) {
-            if (i%4 == 3) continue; // skip alpha channel
-            data[i] = 127 + 2*data[i] - data[i+4] - data[i +width*4];
+            if (i % 4 == 3) continue; // skip alpha channel
+            data[i] = 127 + 2 * data[i] - data[i + 4] - data[i + width * 4];
         }
     }
-	
-	// D) copy image data back to canvas
-    ctx.putImageData(imageData,0,0);
+
+    // D) copy image data back to canvas
+    ctx.putImageData(imageData, 0, 0);
 }
 
 export { setupCanvas, draw };
