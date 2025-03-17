@@ -23,6 +23,7 @@
         "showInvert": false,
         "showEmboss": false,
         "showFish": false,
-        "showWaves": true
+        "showWaves": true,
+        "vizualizationMode": "frequency"
     }
 }

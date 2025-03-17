@@ -36,10 +36,12 @@ const setupCanvas = (canvasElement, analyserNodeRef) => {
 const draw = (params = {}) => {
     // 1 - populate the audioData array with the frequency data from the analyserNode
     // notice these arrays are passed "by reference" 
-    analyserNode.getByteFrequencyData(audioData);
-    // OR
-    //analyserNode.getByteTimeDomainData(audioData); // waveform data
-
+    // Choose the correct data type based on user selection
+    if (params.visualizationMode === "waveform") {
+        analyserNode.getByteTimeDomainData(audioData);
+    } else {
+        analyserNode.getByteFrequencyData(audioData);
+    }
     // 2 - draw background
     ctx.save();
     ctx.fillStyle = "black";
@@ -60,24 +62,24 @@ const draw = (params = {}) => {
         ctx.fillStyle = "rgba(0, 150, 255, 0.8)";
 
         // move line to the right
-        waveOffset+=speed;
+        waveOffset += speed;
 
         for (let i = 0; i < 20; i++) { // Generate multiple circles per frame
-            
+
             let x = (waveOffset + i * 40) % canvasWidth; // Continuous movement to the right
-            let y = canvasHeight / 2 + Math.sin((waveOffset + i * 10)*0.05) * waveAmplitude; // Apply amplitude
+            let y = canvasHeight / 2 + Math.sin((waveOffset + i * 10) * 0.05) * waveAmplitude; // Apply amplitude
 
             // Get audio intensity at this point
             //let audioIndex = Math.floor((i / 20) * audioData.length);
             let audioIntensity = audioData[i] / 255;
 
             // Apply pulsing effect
-        let baseRadius = 10;
-        let pulsingRadius = baseRadius;
+            let baseRadius = 10;
+            let pulsingRadius = baseRadius;
 
-        if (audioIntensity > 0.35){
-            pulsingRadius = baseRadius + (audioIntensity * 10);
-        }
+            if (audioIntensity > 0.35) {
+                pulsingRadius = baseRadius + (audioIntensity * 10);
+            }
 
             // Draw circle
             ctx.beginPath();
@@ -124,7 +126,7 @@ const draw = (params = {}) => {
     if (params.showRipples) {
         for (let i = 0; i < audioData.length; i++) {
             let percent = document.querySelector("#slider-intensity").value;
-            if (Math.random() < 0.001) {
+            if ((audioData[i] / 255) > 0.001 && Math.random() < 0.001) {
 
                 let ripple = new Ripple(
                     Math.random() * canvasWidth,// random x

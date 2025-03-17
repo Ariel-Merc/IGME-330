@@ -153,14 +153,10 @@ const setupUI = (canvasElement) => {
       drawParams.showFish = true;
     }
   }
-  // document.querySelector("#cb-waves").onclick = () => {
-  //   if (drawParams.showWaves) {
-  //     drawParams.showWaves = false;
-  //   }
-  //   else {
-  //     drawParams.showWaves = true;
-  //   }
-  // }
+  document.querySelector("#slider-viz").onchange = (e) => {
+    drawParams.visualizationMode = e.target.value; 
+  };
+  
 
 
   // Audio Modifications
