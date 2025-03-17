@@ -15,6 +15,9 @@ const DEFAULTS = Object.freeze({
 // this is a typed array to hold the audio frequency data
 let audioData = new Uint8Array(DEFAULTS.numSamples / 2);
 
+// declare filters
+let biquadFilter, lowBiquadFilter;
+
 // **Next are "public" methods - we are going to export all of these at the bottom of this file**
 const setupWebAudio = (filePath) => {
     // 1 - The || is because WebAudio has not been standardized across browsers yet
@@ -29,6 +32,13 @@ const setupWebAudio = (filePath) => {
 
     // 4 - create an a source node that points at the <audio> element
     sourceNode = audioCtx.createMediaElementSource(element);
+
+    // setup biquad filter
+    biquadFilter = audioCtx.createBiquadFilter();
+    biquadFilter.type = "highshelf";
+
+    lowBiquadFilter = audioCtx.createBiquadFilter();
+    lowBiquadFilter.type = "lowshelf";
 
     // 5 - create an analyser node
     // note the UK spelling of "Analyser"
@@ -52,26 +62,50 @@ const setupWebAudio = (filePath) => {
     gainNode.gain.value = DEFAULTS.gain;
 
     // 8 - connect the nodes - we now have an audio graph
-    sourceNode.connect(analyserNode);
+    sourceNode.connect(biquadFilter); // hooking biquad in between source and analyser
+    biquadFilter.connect(lowBiquadFilter);
+    lowBiquadFilter.connect(analyserNode);
+
+    // hook up the analyser
     analyserNode.connect(gainNode);
     gainNode.connect(audioCtx.destination);
 }
 
-const loadSoundFile=(filePath)=> {
+const loadSoundFile = (filePath) => {
     element.src = filePath;
 }
-const playCurrentSound=()=> {
+const playCurrentSound = () => {
     element.play();
 }
-const pauseCurrentSound=()=> {
+const pauseCurrentSound = () => {
     element.pause();
 }
-const setVolume=(value)=> {
+const setVolume = (value) => {
     value = Number(value); // make sure that it's a Number rather than a String
     gainNode.gain.value = value;
 }
 
+function toggleHighshelf(highshelf) {
+    console.log("Highshelf toggle:", highshelf);
+    if (highshelf) {
+        biquadFilter.frequency.setValueAtTime(1000, audioCtx.currentTime); // we created the `biquadFilter` (i.e. "treble") node last time
+        biquadFilter.gain.setValueAtTime(25, audioCtx.currentTime);
+    } else {
+        biquadFilter.gain.setValueAtTime(0, audioCtx.currentTime);
+    }
+}
+
+function toggleLowshelf(lowshelf) {
+    console.log("Lowshelf toggle:", lowshelf);
+    if (lowshelf) {
+        lowBiquadFilter.frequency.setValueAtTime(1000, audioCtx.currentTime); // we created the `biquadFilter` (i.e. "treble") node last time
+        lowBiquadFilter.gain.setValueAtTime(25, audioCtx.currentTime);
+    } else {
+        lowBiquadFilter.gain.setValueAtTime(0, audioCtx.currentTime);
+    }
+}
+
 export {
     audioCtx, setupWebAudio, playCurrentSound, pauseCurrentSound,
-    loadSoundFile, setVolume,analyserNode
+    loadSoundFile, setVolume,toggleHighshelf,toggleLowshelf, analyserNode
 };

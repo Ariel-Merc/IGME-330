@@ -12,23 +12,18 @@ import * as audio from './audio.js';
 import * as canvas from './canvas.js';
 
 // draw params object with bools to toggle
-const drawParams = {
-  showGradient: true,
-  showBars: true,
-  showCircles: true,
-  showRipples: false,
-  showNoise: false,
-  showInvert: false,
-  showEmboss: false
-};
+const drawParams = {};
+
+// declare shelves
+let highshelf = false;
+let lowshelf = false;
 
 // 1 - here we are faking an enumeration
 const DEFAULTS = Object.freeze({
-  sound1: "./media/New Adventure Theme.mp3"
+  sound1: "./media/The Forests of Gliese.mp3"
 });
 
 const init = () => {
-  console.log("init called");
   console.log(`Testing utils.getRandomColor() import: ${utils.getRandomColor()}`);
   audio.setupWebAudio(DEFAULTS.sound1);
   let canvasElement = document.querySelector("canvas"); // hookup <canvas> element
@@ -48,7 +43,8 @@ const setupUI = (canvasElement) => {
   };
 
   // B
-  document.querySelector("#btn-play").onclick = e => {
+  let playButton = document.querySelector("#btn-play");
+  playButton.onclick = e => {
     console.log(`audioCtx.state before = ${audio.audioCtx.state}`);
 
     // check if context is in suspended state
@@ -59,12 +55,14 @@ const setupUI = (canvasElement) => {
     if (e.target.dataset.playing == "no") {
       // if track paused, then play
       audio.playCurrentSound();
+      playButton.innerHTML = "⏸";
       e.target.dataset.playing = "yes"; // css text will be set to pause
 
     }
     else {
       // if track playing, pause it
       audio.pauseCurrentSound();
+      playButton.innerHTML = "▶";
       e.target.dataset.playing = "no"; // css text will be set to play
     }
   }
@@ -92,32 +90,27 @@ const setupUI = (canvasElement) => {
     // pause current track if it is playing
     if (playButton.dataset.playing == "yes") {
       playButton.dispatchEvent(new MouseEvent("click"));
+      playButton.innerHTML = "▶";
     }
   }
 
   // toggling check boxes
-  document.querySelector("#cb-gradient").onclick = () => {
-    if (drawParams.showGradient) {
-      drawParams.showGradient = false;
+  document.querySelector("#cb-pond").onclick = () => {
+    if (drawParams.showPond) {
+      drawParams.showPond = false;
     }
     else {
-      drawParams.showGradient = true;
+      drawParams.showPond = true;
     }
   }
-  document.querySelector("#cb-bars").onclick = () => {
-    if (drawParams.showBars) {
+  document.querySelector("#cb-lillypad").onclick = () => {
+    if (drawParams.showLillypad) {
+      drawParams.showLillypad = false;
       drawParams.showBars = false;
     }
     else {
+      drawParams.showLillypad = true;
       drawParams.showBars = true;
-    }
-  }
-  document.querySelector("#cb-circles").onclick = () => {
-    if (drawParams.showCircles) {
-      drawParams.showCircles = false;
-    }
-    else {
-      drawParams.showCircles = true;
     }
   }
   document.querySelector("#cb-noise").onclick = () => {
@@ -152,6 +145,37 @@ const setupUI = (canvasElement) => {
       drawParams.showRipples = true;
     }
   }
+  document.querySelector("#cb-fish").onclick = () => {
+    if (drawParams.showFish) {
+      drawParams.showFish = false;
+    }
+    else {
+      drawParams.showFish = true;
+    }
+  }
+  // document.querySelector("#cb-waves").onclick = () => {
+  //   if (drawParams.showWaves) {
+  //     drawParams.showWaves = false;
+  //   }
+  //   else {
+  //     drawParams.showWaves = true;
+  //   }
+  // }
+
+
+  // Audio Modifications
+  document.querySelector("#cb-highshelf").checked = highshelf;
+  // change the value of highshelf every time checkbox changes state
+  document.querySelector("#cb-highshelf").onchange = e => {
+    highshelf = e.target.checked;
+    audio.toggleHighshelf(highshelf); // turn on or turn off the filter
+  };
+  document.querySelector("#cb-lowshelf").checked = lowshelf;
+  document.querySelector("#cb-lowshelf").onchange = e => {
+    lowshelf = e.target.checked;
+    audio.toggleLowshelf(lowshelf);
+  };
+
 
 } // end setupUI
 
@@ -161,4 +185,4 @@ const loop = () => {
   canvas.draw(drawParams);
 }
 
-export { init };
+export { init, drawParams };
