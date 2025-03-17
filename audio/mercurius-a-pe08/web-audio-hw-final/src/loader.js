@@ -23,7 +23,7 @@ window.onload = () => {
 			header.innerHTML = json.title;
 
 			// populate track selection
-			let trackSelect = document.querySelector("#trackSelect");
+			let trackSelect = document.querySelector("#select-track");
 			for (let track of json.audioFiles) {
 				let option = document.createElement("option");
 				option.value = track.fileName;
@@ -32,7 +32,7 @@ window.onload = () => {
 			}
 
 			// populate ui selections
-			for (let param in json.uiState){
+			for (let param in json.uiState) {
 				main.drawParams[param] = json.uiState[param];
 			}
 		}

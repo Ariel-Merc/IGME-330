@@ -70,14 +70,13 @@ const draw = (params = {}) => {
             let y = canvasHeight / 2 + Math.sin((waveOffset + i * 10) * 0.05) * waveAmplitude; // Apply amplitude
 
             // Get audio intensity at this point
-            //let audioIndex = Math.floor((i / 20) * audioData.length);
             let audioIntensity = audioData[i] / 255;
 
             // Apply pulsing effect
             let baseRadius = 10;
             let pulsingRadius = baseRadius;
 
-            if (audioIntensity > 0.35) {
+            if (audioIntensity > 0.55) {
                 pulsingRadius = baseRadius + (audioIntensity * 10);
             }
 
@@ -123,6 +122,22 @@ const draw = (params = {}) => {
 
     }
 
+    if (params.showFish) {
+        fish.update(audioData);
+        fish.draw(ctx, canvasWidth, canvasHeight);
+    }
+
+    // 5 - draw circles
+    if (params.showLillypad) {
+        let percent = audioData[0] / 255;
+        rotation += percent * 0.03;
+        ctx.save();
+        ctx.translate((canvasWidth / 2), (canvasHeight / 2));
+        ctx.rotate(-rotation);
+        ctx.drawImage(lilypad, -80, -100, 210, 190);
+        ctx.restore();
+    }
+
     if (params.showRipples) {
         for (let i = 0; i < audioData.length; i++) {
             let percent = document.querySelector("#slider-intensity").value;
@@ -150,81 +165,20 @@ const draw = (params = {}) => {
         }
     }
 
-    if (params.showFish) {
-        fish.update(audioData);
-        fish.draw(ctx, canvasWidth, canvasHeight);
-    }
-
-    // 5 - draw circles
-    if (params.showLillypad) {
-        let percent = audioData[0] / 255;
-        rotation += percent * 0.01;
-        ctx.save();
-        ctx.translate((canvasWidth / 2), (canvasHeight / 2));
-        ctx.rotate(-rotation);
-        ctx.drawImage(lilypad, -80, -100, 210, 190);
-        ctx.restore();
-        //(canvasWidth/2)-80, (canvasHeight/2)-100
-
-
-        // let maxRadius = canvasHeight / 4;
-        // ctx.save();
-        // ctx.globalAlpha = 0.5;
-        // for (let i = 0; i < audioData.length; i++) {
-        //     // red-ish circles
-        //     let percent = audioData[i] / 255;
-
-        //     let circleRadius = percent * maxRadius;
-        //     ctx.beginPath();
-        //     ctx.fillStyle = utils.makeColor(255, 111, 111, 0.34 - percent / 3);
-        //     ctx.arc(canvasWidth / 2, canvasHeight / 2, circleRadius, 0, 2 * Math.PI, false);
-        //     ctx.fill();
-        //     ctx.closePath();
-
-        //     // blue-ish circles, more transparent and bigger
-        //     ctx.beginPath();
-        //     ctx.fillStyle = utils.makeColor(0, 0, 255, 0.1 - percent / 10);
-        //     ctx.arc(canvasWidth / 2, canvasHeight / 2, circleRadius * 1.5, 0, 2 * Math.PI, false);
-        //     ctx.fill();
-        //     ctx.closePath();
-
-        //     // yellowish circles, smaller
-        //     ctx.save();
-        //     ctx.beginPath();
-        //     ctx.fillStyle = utils.makeColor(200, 200, 0, 0.5 - percent / 5);
-        //     ctx.arc(canvasWidth / 2, canvasHeight / 2, circleRadius * 0.5, 0, 2 * Math.PI, false);
-        //     ctx.fill();
-        //     ctx.closePath();
-        //     ctx.restore();
-        // }
-        // ctx.restore();
-    }
 
     // 6 - bitmap manipulation
-    // TODO: right now. we are looping though every pixel of the canvas (320,000 of them!), 
-    // regardless of whether or not we are applying a pixel effect
-    // At some point, refactor this code so that we are looping though the image data only if
-    // it is necessary
-
-    // A) grab all of the pixels on the canvas and put them in the `data` array
-    // `imageData.data` is a `Uint8ClampedArray()` typed array that has 1.28 million elements!
-    // the variable `data` below is a reference to that array 
     let imageData = ctx.getImageData(0, 0, canvasWidth, canvasHeight);
     let data = imageData.data;
     let length = data.length;
-    let width = imageData.width; // not using here
+    let width = imageData.width;
 
-    // B) Iterate through each pixel, stepping 4 elements at a time (which is the RGBA for 1 pixel)
+    // Iterate through each pixel, stepping 4 elements at a time (which is the RGBA for 1 pixel)
     for (let i = 0; i < length; i += 4) {
-        // C) randomly change every 20th pixel to red
+        // randomly change every 20th pixel to red
         if (params.showNoise && Math.random() < 0.05) {
-            // data[i] is the red channel
-            // data[i+1] is the green channel
-            // data[i+2] is the blue channel
-            // data[i+3] is the alpha channel
             data[i] = data[i + 1] = data[i + 2] = 0; // zero out the red and green and blue channels
             data[i] = 100; // make the red channel 100% red
-        } // end if
+        }
 
         // invert
         if (params.showInvert) {
@@ -232,9 +186,8 @@ const draw = (params = {}) => {
             data[i + 1] = 255 - red;
             data[i + 1] = 255 - green;
             data[i + 2] = 255 - blue;
-            // data[i+3] is the alpha
         }
-    } // end for
+    }
 
     // add embossing
     for (let i = 0; i < length; i++) {
@@ -245,7 +198,7 @@ const draw = (params = {}) => {
         }
     }
 
-    // D) copy image data back to canvas
+    // copy image data back to canvas
     ctx.putImageData(imageData, 0, 0);
 }
 

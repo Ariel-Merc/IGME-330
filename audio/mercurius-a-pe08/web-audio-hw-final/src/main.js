@@ -34,7 +34,7 @@ const init = () => {
 
 const setupUI = (canvasElement) => {
   // A - hookup fullscreen button
-  const fsButton = document.querySelector("#fsButton");
+  const fsButton = document.querySelector("#fs-button");
 
   // add .onclick event to button
   fsButton.onclick = e => {
@@ -69,7 +69,7 @@ const setupUI = (canvasElement) => {
 
   // C - hookup volume slider & label
   let volumeSlider = document.querySelector("#slider-volume");
-  let volumeLabel = document.querySelector("#volumeLabel");
+  let volumeLabel = document.querySelector("#volume-label");
 
   // add .oninput event to slider
   volumeSlider.oninput = e => {
@@ -83,7 +83,7 @@ const setupUI = (canvasElement) => {
   volumeSlider.dispatchEvent(new Event("input"));
 
   // D - hookup track <select>
-  let trackSelect = document.querySelector("#trackSelect");
+  let trackSelect = document.querySelector("#select-track");
   // add .onchange event to <select>
   trackSelect.onchange = e => {
     audio.loadSoundFile(e.target.value);
@@ -153,10 +153,10 @@ const setupUI = (canvasElement) => {
       drawParams.showFish = true;
     }
   }
-  document.querySelector("#slider-viz").onchange = (e) => {
-    drawParams.visualizationMode = e.target.value; 
+  document.querySelector("#select-viz").onchange = (e) => {
+    drawParams.visualizationMode = e.target.value;
   };
-  
+
 
 
   // Audio Modifications
@@ -176,9 +176,8 @@ const setupUI = (canvasElement) => {
 } // end setupUI
 
 const loop = () => {
-  /* NOTE: This is temporary testing code that we will delete in Part II */
-  requestAnimationFrame(loop);
   canvas.draw(drawParams);
+  setTimeout(loop, 1000 / 60); // Limit the loop to 60 FPS
 }
 
 export { init, drawParams };

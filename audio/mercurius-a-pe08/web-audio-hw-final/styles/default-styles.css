@@ -5,13 +5,13 @@ html {
   padding: 0;
   font-family: "Bodoni Moda", serif;
   background-color: #000;
-  height: 100%; 
+  height: 100%;
 }
 
 main {
   display: flex;
   justify-content: center;
-  height: 100%; 
+  height: 100%;
   width: 100%;
 }
 
@@ -21,25 +21,27 @@ main {
 }
 
 #visualizer-canvas {
-  flex: 1; /* Canvas takes up all available space */
+  flex: 1;
+  /* Canvas takes up all available space */
   background: #000;
   height: 100%;
 }
 
 #controls {
-  width: 300px; /* Fixed width for the control panel */
+  width: 300px;
+  /* Fixed width for the control panel */
   background: #1a330d;
   color: white;
   padding: 20px;
   /* overflow-y: auto; Add scroll if controls exceed the height */
 }
 
-h1{
+h1 {
   margin: 2px;
   color: #e2f7d0;
 }
 
-h4{
+h4 {
   color: #e2f7d0;
   margin-bottom: 0;
   padding-bottom: 10px;
@@ -53,12 +55,13 @@ label {
   margin-left: 10px;
 }
 
-button{
+button {
   color: #e2f7d0;
   background-color: transparent;
   border: none;
   font-size: medium;
 }
+
 select {
   background-color: #8dcb5b;
   color: white;
@@ -67,7 +70,7 @@ select {
   margin: 5px 0;
 }
 
-button:hover{
+button:hover {
   cursor: pointer;
   color: rgb(214, 36, 36);
 }
@@ -82,6 +85,6 @@ label {
   font-size: small;
 }
 
-input[type="checkbox"]{
-accent-color: rgb(214, 36, 36);
+input[type="checkbox"] {
+  accent-color: rgb(214, 36, 36);
 }

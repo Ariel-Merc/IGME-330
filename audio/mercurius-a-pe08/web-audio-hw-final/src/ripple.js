@@ -1,10 +1,10 @@
 class Ripple {
-    constructor(x,y,intensity) {
+    constructor(x, y, intensity) {
         this.x = x;
         this.y = y;
         this.radius = 5;
         this.alpha = 1.0;
-        this.growthTime = 1 + intensity*2;
+        this.growthTime = 1 + intensity * 2;
         this.fadeTime = 0.01 + intensity * 0.002;
     }
 
@@ -26,4 +26,4 @@ class Ripple {
     }
 }
 
-export {Ripple};
+export { Ripple };

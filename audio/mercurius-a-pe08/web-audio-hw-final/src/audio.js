@@ -44,17 +44,8 @@ const setupWebAudio = (filePath) => {
     // note the UK spelling of "Analyser"
     analyserNode = audioCtx.createAnalyser();
 
-    /*
-    // 6
-    We will request DEFAULTS.numSamples number of samples or "bins" spaced equally 
-    across the sound spectrum.
-    
-    If DEFAULTS.numSamples (fftSize) is 256, then the first bin is 0 Hz, the second is 172 Hz, 
-    the third is 344Hz, and so on. Each bin contains a number between 0-255 representing 
-    the amplitude of that frequency.
-    */
 
-    // fft stands for Fast Fourier Transform
+    // 6 fft stands for Fast Fourier Transform
     analyserNode.fftSize = DEFAULTS.numSamples;
 
     // 7 - create a gain (volume) node
@@ -86,9 +77,10 @@ const setVolume = (value) => {
 }
 
 function toggleHighshelf(highshelf) {
+    // toggle trebble on when checked off
     console.log("Highshelf toggle:", highshelf);
     if (highshelf) {
-        biquadFilter.frequency.setValueAtTime(1000, audioCtx.currentTime); // we created the `biquadFilter` (i.e. "treble") node last time
+        biquadFilter.frequency.setValueAtTime(1000, audioCtx.currentTime);
         biquadFilter.gain.setValueAtTime(25, audioCtx.currentTime);
     } else {
         biquadFilter.gain.setValueAtTime(0, audioCtx.currentTime);
@@ -96,6 +88,7 @@ function toggleHighshelf(highshelf) {
 }
 
 function toggleLowshelf(lowshelf) {
+    // toggle base on when checked off
     console.log("Lowshelf toggle:", lowshelf);
     if (lowshelf) {
         lowBiquadFilter.frequency.setValueAtTime(1000, audioCtx.currentTime); // we created the `biquadFilter` (i.e. "treble") node last time
@@ -107,5 +100,5 @@ function toggleLowshelf(lowshelf) {
 
 export {
     audioCtx, setupWebAudio, playCurrentSound, pauseCurrentSound,
-    loadSoundFile, setVolume,toggleHighshelf,toggleLowshelf, analyserNode
+    loadSoundFile, setVolume, toggleHighshelf, toggleLowshelf, analyserNode
 };
