@@ -15,6 +15,9 @@ const DEFAULTS = Object.freeze({
 // this is a typed array to hold the audio frequency data
 let audioData = new Uint8Array(DEFAULTS.numSamples / 2);
 
+// declare filters
+let biquadFilter, lowBiquadFilter;
+
 // **Next are "public" methods - we are going to export all of these at the bottom of this file**
 const setupWebAudio = (filePath) => {
     // 1 - The || is because WebAudio has not been standardized across browsers yet
@@ -30,21 +33,19 @@ const setupWebAudio = (filePath) => {
     // 4 - create an a source node that points at the <audio> element
     sourceNode = audioCtx.createMediaElementSource(element);
 
+    // setup biquad filter
+    biquadFilter = audioCtx.createBiquadFilter();
+    biquadFilter.type = "highshelf";
+
+    lowBiquadFilter = audioCtx.createBiquadFilter();
+    lowBiquadFilter.type = "lowshelf";
+
     // 5 - create an analyser node
     // note the UK spelling of "Analyser"
     analyserNode = audioCtx.createAnalyser();
 
-    /*
-    // 6
-    We will request DEFAULTS.numSamples number of samples or "bins" spaced equally 
-    across the sound spectrum.
-    
-    If DEFAULTS.numSamples (fftSize) is 256, then the first bin is 0 Hz, the second is 172 Hz, 
-    the third is 344Hz, and so on. Each bin contains a number between 0-255 representing 
-    the amplitude of that frequency.
-    */
 
-    // fft stands for Fast Fourier Transform
+    // 6 fft stands for Fast Fourier Transform
     analyserNode.fftSize = DEFAULTS.numSamples;
 
     // 7 - create a gain (volume) node
@@ -52,26 +53,52 @@ const setupWebAudio = (filePath) => {
     gainNode.gain.value = DEFAULTS.gain;
 
     // 8 - connect the nodes - we now have an audio graph
-    sourceNode.connect(analyserNode);
+    sourceNode.connect(biquadFilter); // hooking biquad in between source and analyser
+    biquadFilter.connect(lowBiquadFilter);
+    lowBiquadFilter.connect(analyserNode);
+
+    // hook up the analyser
     analyserNode.connect(gainNode);
     gainNode.connect(audioCtx.destination);
 }
 
-const loadSoundFile=(filePath)=> {
+const loadSoundFile = (filePath) => {
     element.src = filePath;
 }
-const playCurrentSound=()=> {
+const playCurrentSound = () => {
     element.play();
 }
-const pauseCurrentSound=()=> {
+const pauseCurrentSound = () => {
     element.pause();
 }
-const setVolume=(value)=> {
+const setVolume = (value) => {
     value = Number(value); // make sure that it's a Number rather than a String
     gainNode.gain.value = value;
 }
 
+function toggleHighshelf(highshelf) {
+    // toggle trebble on when checked off
+    console.log("Highshelf toggle:", highshelf);
+    if (highshelf) {
+        biquadFilter.frequency.setValueAtTime(1000, audioCtx.currentTime);
+        biquadFilter.gain.setValueAtTime(25, audioCtx.currentTime);
+    } else {
+        biquadFilter.gain.setValueAtTime(0, audioCtx.currentTime);
+    }
+}
+
+function toggleLowshelf(lowshelf) {
+    // toggle base on when checked off
+    console.log("Lowshelf toggle:", lowshelf);
+    if (lowshelf) {
+        lowBiquadFilter.frequency.setValueAtTime(1000, audioCtx.currentTime); // we created the `biquadFilter` (i.e. "treble") node last time
+        lowBiquadFilter.gain.setValueAtTime(25, audioCtx.currentTime);
+    } else {
+        lowBiquadFilter.gain.setValueAtTime(0, audioCtx.currentTime);
+    }
+}
+
 export {
     audioCtx, setupWebAudio, playCurrentSound, pauseCurrentSound,
-    loadSoundFile, setVolume,analyserNode
+    loadSoundFile, setVolume, toggleHighshelf, toggleLowshelf, analyserNode
 };

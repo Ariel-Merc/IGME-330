@@ -4,6 +4,11 @@
 <head>
     <meta charset="utf-8" />
     <title>Audio Visualizer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&display=swap"
+        rel="stylesheet">
     <link href="./styles/default-styles.css" type="text/css" rel="stylesheet" />
     <script src="./src/loader.js" type="module"></script>
 </head>
@@ -13,50 +18,68 @@
         <canvas width="900" height="600"></canvas>
         <div id="controls">
             <section>
+                <h1></h1>
                 <label>Track:
-                    <select id="trackSelect">
-                        <option value="media/New Adventure Theme.mp3" selected>New Adventure Theme</option>
-                        <option value="media/Peanuts Theme.mp3">Peanuts Theme</option>
-                        <option value="media/The Picard Song.mp3">The Picard Song</option>
-                    </select>
+                    <select id="select-track"></select>
                 </label>
-            </section>
-            <section>
-                <button id="btn-play" data-playing="no">Play</button>
-                <button id="fsButton">Full Screen</button>
+                <section>
+                    <button id="btn-play" data-playing="no">▶</button>
+                    🔊 <input type="range" id="slider-volume" min="0" max="2" value="1" step="0.01">
+                    <span id="volume-label">???</span>
+
+                    <button id="fs-button">⛶</button>
+                </section>
             </section>
 
+
             <section>
-                Volume: <input type="range" id="slider-volume" min="0" max="2" value="1" step="0.01">
-                <span id="volumeLabel">???</span>
                 <section>
                     <section>
-                        <input type="checkbox" id="cb-gradient" checked>
-                        <label for="cb-gradient">Show Gradient</label>
-                    </section>
-                    <section>
-                        <input type="checkbox" id="cb-bars" checked>
-                        <label for="cb-bars">Show Bars</label>
-                    </section>
-                    <section>
-                        <input type="checkbox" id="cb-circles" checked>
-                        <label for="cb-circles">Show Circles</label>
-                    </section>
-                    <section>
-                        <input type="checkbox" id="cb-noise">
-                        <label for="cb-noise">Show Noise</label>
-                    </section>
-                    <section>
-                        <input type="checkbox" id="cb-invert">
-                        <label for="cb-invert">Show Invert</label>
-                    </section>
-                    <section>
-                        <input type="checkbox" id="cb-emboss">
-                        <label for="cb-emboss">Show Emboss</label>
+                        <h4>Pond Attributes</h4>
+                        <input type="checkbox" id="cb-pond" checked>
+                        <label for="cb-pond">View Pond</label>
+                        &nbsp;
+                        <input type="checkbox" id="cb-lillypad" checked>
+                        <label for="cb-lillypad">Add Lillypad</label>
                     </section>
                     <section>
                         <input type="checkbox" id="cb-ripple">
-                        <label for="cb-ripple">Show Ripple</label>
+                        <label for="cb-ripple">Start Rain</label>
+                        &nbsp;
+                        <input type="checkbox" id="cb-fish">
+                        <label for="cb-fish">Invite Fish</label>
+                    </section>
+                    <section>
+                        <label for="slider-intensity">Rain Strength: </label>
+                        <input type="range" id="slider-intensity" min="0" max="5" step="0.1" value="1">
+                    </section>
+                    <section>
+                        <h4>Visuals</h4>
+                        <input type="checkbox" id="cb-noise">
+                        <label for="cb-noise"> Noise</label>
+                        &nbsp;
+                        <input type="checkbox" id="cb-invert">
+                        <label for="cb-invert"> Invert</label>
+                    </section>
+                    <section>
+                        <input type="checkbox" id="cb-emboss">
+                        <label for="cb-emboss"> Emboss</label>
+                        &nbsp;
+                        <label for="slider-wave">Wave</label>
+                        <input type="range" id="slider-wave" min="5" max="100" value="30">
+                        <label for="select-viz">Visualization Mode:</label>
+                        <select id="select-viz">
+                            <option value="frequency">Frequency Data</option>
+                            <option value="waveform">Waveform Data</option>
+                        </select>
+                    </section>
+                    <section>
+                        <h4>Audio</h4>
+                        <input type="checkbox" id="cb-highshelf">
+                        <label for="cb-highshelf">Treble</label>
+                        &nbsp;
+                        <input type="checkbox" id="cb-lowshelf">
+                        <label for="cb-lowshelf">Bass</label>
                     </section>
                 </section>
             </section>
