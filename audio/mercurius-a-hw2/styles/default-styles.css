@@ -1,0 +1,90 @@
+/* styles/default-styles.css */
+body,
+html {
+  margin: 0;
+  padding: 0;
+  font-family: "Bodoni Moda", serif;
+  background-color: #000;
+  height: 100%;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+#visualizer-container {
+  display: flex;
+  width: 100%;
+}
+
+#visualizer-canvas {
+  flex: 1;
+  /* Canvas takes up all available space */
+  background: #000;
+  height: 100%;
+}
+
+#controls {
+  width: 300px;
+  /* Fixed width for the control panel */
+  background: #1a330d;
+  color: white;
+  padding: 20px;
+  /* overflow-y: auto; Add scroll if controls exceed the height */
+}
+
+h1 {
+  margin: 2px;
+  color: #e2f7d0;
+}
+
+h4 {
+  color: #e2f7d0;
+  margin-bottom: 0;
+  padding-bottom: 10px;
+}
+
+section {
+  margin-bottom: 10px;
+}
+
+label {
+  margin-left: 10px;
+}
+
+button {
+  color: #e2f7d0;
+  background-color: transparent;
+  border: none;
+  font-size: medium;
+}
+
+select {
+  background-color: #8dcb5b;
+  color: white;
+  border: none;
+  padding: 10px;
+  margin: 5px 0;
+}
+
+button:hover {
+  cursor: pointer;
+  color: rgb(214, 36, 36);
+}
+
+select:hover {
+  cursor: pointer;
+}
+
+label {
+  color: #e2f7d0;
+  font-family: "Bodoni Moda", serif;
+  font-size: small;
+}
+
+input[type="checkbox"] {
+  accent-color: rgb(214, 36, 36);
+}

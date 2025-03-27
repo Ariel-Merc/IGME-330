@@ -1,0 +1,23 @@
+Audio effects
+I kept it pretty standard with bass and treble. I addeded two BiquadFilterNodes to the audio routing graph,
+which modify th frequency of the original audio signal. The highshelf (treble) when enabled boosts high frequencies. 
+The lowshelf (bass) when enabled boosts low frequencies.
+
+Sprites
+The main sprite with the most happening is the rain ripples. The Ripple class represents expanding circular waves 
+that spawn across random points of the canvas in time with the music. These waves also eventually fade out and dissipate.
+Next the fish class represents a visual element that orbits around the center of the canvas, responding to audio 
+intensity by adjusting its speed. I think this could have been fine-tuned more to make the speed change more obvious.
+Finally, the wave of mini circles. This was not apart of it's own seperate class. A continuous wave of blue circles flows
+from left to right, pulsing in time with the audio intensity. Again, I think this could have been fine-tuned more to give
+the circles a more prominent pulse.
+
+App data
+I put the title, the audio files, and the UI toggle data inside the json file.
+
+Aesthetics
+Overall, I aimed to create a cohesive experience with thematic consistency. The koi pond theme felt perfect. Most of the 
+major elements I added were each created with the idea of this unifying theme in mind. I believe in that aspect, I have 
+accomplished what I set out to do. I would rate my improvements at 12%. I did not do a big overhall, so I would not
+really consider this a portfolio piece. However, the attention to thematic detail and refined visual effects made 
+a much more immersive and polished experience compared to the original homework.

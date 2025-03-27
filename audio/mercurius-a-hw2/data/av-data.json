@@ -1,0 +1,29 @@
+{
+    "title": "The Little Koi Pond",
+    "audioFiles": [
+        {
+            "fileName": "media/The Forests of Gliese.mp3",
+            "trackName": "The Forests of Gliese"
+        },
+        {
+            "fileName": "media/Are You Lost.mp3",
+            "trackName": "Are You Lost"
+        },
+        {
+            "fileName": "media/AMARA The Great Intelligence.MP3",
+            "trackName": "AMARA"
+        }
+    ],
+    "uiState": {
+        "showPond": true,
+        "showBars": true,
+        "showLillypad": true,
+        "showRipples": false,
+        "showNoise": false,
+        "showInvert": false,
+        "showEmboss": false,
+        "showFish": false,
+        "showWaves": true,
+        "vizualizationMode": "frequency"
+    }
+}
