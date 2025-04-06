@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Shapeinator Practical</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.3/css/bulma.min.css">
+</head>
+
+<body>
+    <section class="section">
+        <div class="container has-text-centered">
+            <!-- app title goes here -->
+            <h1 class="title">Shapeinator</h1>
+            <div class="field is-grouped is-grouped-centered">
+                <div class="control">
+                    <div>
+                        <select class="select" id="shape-select">
+                            <option value="line" selected>Line</option>
+                            <option value="square">Square</option>
+                            <option value="triangle">Triangle</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="control">
+                    <label>
+                        <input type="checkbox" class="checkbox" id="rotate-checkbox"> Rotate
+                    </label>
+                </div>
+                <div class="control">
+                    <button class="has-text-primary" id="draw-button">Draw</button>
+                </div>
+            </div>
+            <div class="is-flex is-justify-content-center mt-5">
+                <canvas id="shape-canvas" width="400" height="400" class="box"></canvas>
+            </div>
+        </div>
+    </section>
+</body>
+<script src="dist/bundle.js"></script>
+
+</html>
