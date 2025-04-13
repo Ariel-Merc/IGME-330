@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" class="has-background-black">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Audio Visualizer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&display=swap"
+        rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <!-- <link href="./styles/default-styles.css" type="text/css" rel="stylesheet" /> -->
+</head>
+
+<body >
+    <main class="columns">
+        <canvas width="900" height="600" class="column pr-0 pb-0"></canvas>
+        <div id="controls" class="column is-one-quarter has-background-success-dark">
+            <section>
+                <h1 class="mb-2 mt-3 is-size-3 has-text-warning-light has-text-weight-bold">Title</h1>
+                <label class="is-size-6 has-text-warning-light">Track:
+                    <select id="select-track" class="is-size-6 p-2 has-text-warning has-background-success"></select>
+                </label>
+                <section class="has-text-success-light mt-4 ml-4 mb-5">
+                    <button id="btn-play" data-playing="no">▶</button>
+                    🔊 <input type="range" id="slider-volume" min="0" max="2" value="1" step="0.01">
+                    <span id="volume-label">???</span>
+
+                    <button id="fs-button">⛶</button>
+                </section>
+            </section>
+
+
+            <section>
+                <section>
+                    <section>
+                        <h4 class="is-size-5 mb-3 has-text-warning has-text-weight-bold">Pond Attributes</h4>
+                        <input type="checkbox" id="cb-pond" checked>
+                        <label for="cb-pond" class="has-text-warning-light">View Pond</label>
+                        &nbsp;
+                        <input type="checkbox" id="cb-lillypad" checked>
+                        <label for="cb-lillypad" class="has-text-warning-light">Add Lillypad</label>
+                    </section>
+                    <section>
+                        <input type="checkbox" id="cb-ripple">
+                        <label for="cb-ripple" class="has-text-warning-light">Start Rain</label>
+                        &nbsp;
+                        <input type="checkbox" id="cb-fish">
+                        <label for="cb-fish" class="has-text-warning-light">Invite Fish</label>
+                    </section>
+                    <section class="mb-4">
+                        <label for="slider-intensity" class="has-text-warning-light">Rain Strength: </label>
+                        <input type="range" id="slider-intensity" min="0" max="5" step="0.1" value="1">
+                    </section>
+                    <section>
+                        <h4 class="is-size-5 mb-3 has-text-warning has-text-weight-bold">Visuals</h4>
+                        <input type="checkbox" id="cb-noise">
+                        <label for="cb-noise" class="has-text-warning-light"> Noise</label>
+                        &nbsp;
+                        <input type="checkbox" id="cb-invert">
+                        <label for="cb-invert" class="has-text-warning-light"> Invert</label>
+                    </section>
+                    <section>
+                        <input type="checkbox" id="cb-emboss">
+                        <label for="cb-emboss" class="has-text-warning-light"> Emboss</label>
+                        &nbsp;
+                        <label for="slider-wave" class="has-text-warning-light">Wave</label>
+                        <input type="range" id="slider-wave" min="5" max="100" value="30">
+                        
+                    </section>
+                    <section class="mb-4">
+                        <label for="select-viz" class="has-text-warning-light">Visualization Mode:</label>
+                        <select id="select-viz" class="is-size-6 p-1 has-text-warning has-background-success">
+                            <option value="frequency">Frequency Data</option>
+                            <option value="waveform">Waveform Data</option>
+                        </select>
+                    </section>
+                    <section>
+                        <h4 class="is-size-5 mb-3 has-text-warning has-text-weight-bold">Audio</h4>
+                        <input type="checkbox" id="cb-highshelf">
+                        <label for="cb-highshelf" class="has-text-warning-light">Treble</label>
+                        &nbsp;
+                        <input type="checkbox" id="cb-lowshelf">
+                        <label for="cb-lowshelf" class="has-text-warning-light">Bass</label>
+                    </section>
+                </section>
+            </section>
+        </div>
+    </main>
+    <script src="dist/bundle.js"></script>
+</body>
+
+</html>
