@@ -1,0 +1,11 @@
+For this project I coded in TypeScript.
+I fixed all of the errors happening as a result of me directly using an HTML 
+Element rather than setting it to a variable first and then using it. (This
+includes every instance of e.target)
+I fixed type errors that required me to cast the value of one thing to another,
+usually the value of an HTML Element to a number.
+Most of my warnings were caused by the fact that my variables did not
+have explicit types. Therefore I went through the whole project and fixed that.
+I used parameter destructuring on most of my functions. Functions with only one
+parameter, I left alone.
+Interfaces were moved out into their own files.

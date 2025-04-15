@@ -24,6 +24,6 @@
         "showEmboss": false,
         "showFish": false,
         "showWaves": true,
-        "vizualizationMode": "frequency"
+        "visualizationMode": "frequency"
     }
 }
