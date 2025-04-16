@@ -45,11 +45,11 @@
                 const childKey = score.key;
                 const childData = score.val();
                 console.log(childKey, childData);
-                //html += `<ol><li>${childKey} </li></ol>`;
+                html += `<li>${childData.userId} - ${childData.game} - ${childData.score}</li>`;
 
                 
             });
-            //document.querySelector("#scoresList").innerHTML = `<ol>${html}</ol>`;
+            document.querySelector("#scoresList").innerHTML = `<ul>${html}</ul>`;
         }
 
         onValue(scoresRef, scoresChanged);
