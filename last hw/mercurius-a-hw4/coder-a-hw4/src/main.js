@@ -7,8 +7,15 @@ import * as storage from "./storage.js"
 const lnglatNYS = [-75.71615970715911, 43.025810763917775];
 const lnglatUSA = [-98.5696, 39.8282];
 let favoriteIds = ["p20", "p79", "p180", "p43"];
-let storageItems = [];
+let favoriteItems = [];
 let geojson;
+
+// load in favorite data from local storage
+favoriteItems = storage.readFromLocalStorage("favoriteItems");
+favoriteIds = storage.readFromLocalStorage("favoriteItems");
+if (!Array.isArray(favoriteItems)) {
+	favoriteItems = [];
+}
 
 
 // II. Functions
@@ -34,6 +41,8 @@ const setupUI = () => {
 		map.flyTo(lnglatNYS);
 	};
 
+	favoriteItems = storage.readFromLocalStorage("favoriteItems");
+	favoriteIds = storage.readFromLocalStorage("favoriteItems");
 	refreshFavorites();
 
 }
@@ -71,7 +80,7 @@ const showFeatureDetails = (id) => {
 		};
 	}
 	else {
-		parkDetails.innerHTML +=`<button id="btn-delete" class="button is-warning mt-3">Delete</button>`;
+		parkDetails.innerHTML += `<button id="btn-delete" class="button is-warning mt-3">Delete</button>`;
 		document.querySelector("#btn-delete").onclick = () => {
 			favoriteIds = favoriteIds.filter(favId => favId !== id);
 			refreshFavorites();
@@ -80,7 +89,7 @@ const showFeatureDetails = (id) => {
 
 
 
-	
+
 
 	document.querySelector("#details-3").innerHTML =
 		`<div class= "has-text-left has-text-weight-light">${feature.properties.description}</div>`;
@@ -110,14 +119,14 @@ const refreshFavorites = () => {
 	favoritesContainer.innerHTML = "";
 
 	// clear storage list
-	storageItems = [];
-	storage.writeToLocalStorage("storageItems",storageItems);
+	favoriteItems = [];
+	storage.writeToLocalStorage("favoriteItems", favoriteItems);
 
 	for (const id of favoriteIds) {
-		storageItems.push(id);
+		favoriteItems.push(id);
 		favoritesContainer.appendChild(createFavoriteElement(id));
 	};
-	storage.writeToLocalStorage("storageItems",storageItems);
+	storage.writeToLocalStorage("favoriteItems", favoriteItems);
 };
 
 const init = () => {
