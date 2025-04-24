@@ -1,11 +1,13 @@
 import * as map from "./map.js";
 import * as ajax from "./ajax.js";
+import * as storage from "./storage.js"
 
 // I. Variables & constants
 // NB - it's easy to get [longitude,latitude] coordinates with this tool: http://geojson.io/
 const lnglatNYS = [-75.71615970715911, 43.025810763917775];
 const lnglatUSA = [-98.5696, 39.8282];
 let favoriteIds = ["p20", "p79", "p180", "p43"];
+let storageItems = [];
 let geojson;
 
 
@@ -106,9 +108,16 @@ const createFavoriteElement = (id) => {
 const refreshFavorites = () => {
 	const favoritesContainer = document.querySelector("#favorites-list");
 	favoritesContainer.innerHTML = "";
+
+	// clear storage list
+	storageItems = [];
+	storage.writeToLocalStorage("storageItems",storageItems);
+
 	for (const id of favoriteIds) {
+		storageItems.push(id);
 		favoritesContainer.appendChild(createFavoriteElement(id));
 	};
+	storage.writeToLocalStorage("storageItems",storageItems);
 };
 
 const init = () => {
