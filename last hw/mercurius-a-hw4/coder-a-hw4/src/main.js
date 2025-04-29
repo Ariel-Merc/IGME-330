@@ -1,6 +1,19 @@
 import * as map from "./map.js";
 import * as ajax from "./ajax.js";
-import * as storage from "./storage.js"
+import * as storage from "./storage.js";
+
+// set up firebase
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+import { getDatabase, ref, update, increment } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-database.js";
+
+const firebaseConfig = {
+	apiKey: "AIzaSyBh0QgLqQU6p96CQWwGfL1yxPgo0h0IriM",
+	authDomain: "high-scores-471ff.firebaseapp.com",
+	projectId: "high-scores-471ff",
+	storageBucket: "high-scores-471ff.appspot.com",
+	messagingSenderId: "953529628769",
+	appId: "1:953529628769:web:18e700882c5242f3fc5220"
+};
 
 // I. Variables & constants
 // NB - it's easy to get [longitude,latitude] coordinates with this tool: http://geojson.io/
@@ -9,6 +22,8 @@ const lnglatUSA = [-98.5696, 39.8282];
 let favoriteIds = ["p20", "p79", "p180", "p43"];
 let favoriteItems = [];
 let geojson;
+const app = initializeApp(firebaseConfig);
+const db = getDatabase();
 
 // load in favorite data from local storage
 favoriteItems = storage.readFromLocalStorage("favoriteItems");
@@ -77,6 +92,7 @@ const showFeatureDetails = (id) => {
 		document.querySelector("#btn-fav").onclick = () => {
 			favoriteIds.push(id);
 			refreshFavorites();
+			incrementParkLike(id);
 		};
 	}
 	else {
@@ -84,15 +100,22 @@ const showFeatureDetails = (id) => {
 		document.querySelector("#btn-delete").onclick = () => {
 			favoriteIds = favoriteIds.filter(favId => favId !== id);
 			refreshFavorites();
+			decrementParkLike(id);
 		};
 	}
 
-
-
-
-
 	document.querySelector("#details-3").innerHTML =
 		`<div class= "has-text-left has-text-weight-light">${feature.properties.description}</div>`;
+};
+
+const incrementParkLike = (parkId) => {
+	const favRef = ref(db, `favorite-parks/${parkId}`);
+	update(favRef, { likes: increment(1) });
+};
+
+const decrementParkLike = (parkId) => {
+	const favRef = ref(db, `favorite-parks/${parkId}`);
+	update(favRef, { likes: increment(-1) });
 };
 
 const createFavoriteElement = (id) => {

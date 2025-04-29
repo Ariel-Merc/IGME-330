@@ -39,3 +39,7 @@
 	height: 144px;
 	overflow: auto;
 }
+
+.input {
+	width: 100px;
+}
